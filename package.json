@@ -13,8 +13,6 @@
     "axios": "^0.18.1",
     "discord.js": "^11.4.2",
     "dotenv": "^7.0.0",
-    "ffmpeg": "0.0.4",
-    "ffmpeg-binaries": "^4.0.0",
     "moment": "^2.24.0"
   }
 }
