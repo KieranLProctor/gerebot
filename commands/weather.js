@@ -26,7 +26,7 @@ module.exports = {
     };
 
     const getWeatherData = (lat, long) => {
-      let url = `https://api.darksky.net/forecast/${config.apiKeys.darksky}/${lat},${long}`;
+      let url = `https://api.darksky.net/forecast/${config.apiKeys.darksky}/${lat},${long}?units=si`;
 
       axios.get(url).then(res => {
         let embed = new Discord.RichEmbed();
