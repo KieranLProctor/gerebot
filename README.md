@@ -1,11 +1,14 @@
 # Gerebot
 
-Gerebot is a bot for Discord which was written by [me](https://github.com/KieranLProctor) using the [Discord.js](https://discord.js.org/#/) library.
-I created this project as something fun to do on the side and also to add to my Discord server to improve the experience.
+Gerebot is a bot for Discord which was written by [me](https://github.com/KieranLProctor) using the [Discord.js](https://discord.js.org/#/) library. I created this project as something fun to do on the side and also to add to my Discord server to improve the experience.
+
+## Disclaimer
+
+This project is still very much a work in progress and may contain errors or even broken features, please bear that in mind if you wish to Gerebot.
 
 ## Installation
 
-Use the package manager [npm](https://www.npmjs.com/) to install gerebot's dependencies and get started.
+Use the package manager [npm](https://www.npmjs.com/) to install Gerebot's dependencies and get started.
 
 ```bash
 npm install
