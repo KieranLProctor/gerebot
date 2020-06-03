@@ -4,7 +4,7 @@ Gerebot is a bot for Discord which was written by [me](https://github.com/Kieran
 
 ## Disclaimer
 
-This project is still very much a work in progress and may contain errors or even broken features, please bear that in mind if you wish to Gerebot.
+This project is still very much a work in progress and may contain errors or even broken features, please bear that in mind if you wish to use this project in any way.
 
 ## Installation
 
