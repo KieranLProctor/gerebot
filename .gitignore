@@ -1,6 +1,0 @@
-/node_modules
-.gitignore
-package-lock.json
-.env
-cmds_info.txt
-Procfile
