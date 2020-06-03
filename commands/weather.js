@@ -5,6 +5,7 @@ const moment = require('moment');
 require('dotenv').config();
 const mapboxToken = process.env.MAPBOX_TOKEN;
 const darkskyToken = DARKSKY_TOKEN;
+const embedColor = process.env.EMBED_COLOR;
 
 module.exports = {
   name: 'weather',
@@ -35,7 +36,7 @@ module.exports = {
         let embed = new Discord.RichEmbed();
 
         embed.setAuthor(message.author.username)
-          .setColor(config.colors.embed)
+          .setColor(embedColor)
           .setDescription(`Weather information for ${args}.`)
           .addField('¬ Time', moment().format('llll'), true)
           .addField('¬ Summary', res.data.currently.summary, true)

@@ -1,6 +1,7 @@
 // Dependencies.
 const Discord = require('discord.js');
 require('dotenv').config();
+const embedColor = process.env.EMBED_COLOR;
 
 module.exports = {
   name: "serverinfo",
@@ -31,7 +32,7 @@ module.exports = {
     if (!guild || !guild.avilable) return message.reply(`This guild isn't available for data retrieval.`);
 
     embed.setAuthor(message.author.username)
-      .setColor(config.colors.embed)
+      .setColor(embedColor)
       .setDescription('Information about the server.')
       .addField('¬ Name', message.guild.name, true)
       .addField('¬ ID', message.guild.id, true)
