@@ -1,6 +1,6 @@
 # Gerebot
 
-Gerebot is a bot for Discord which was written by me [Kieran](https://github.com/KieranLProctor) using the [Discord.js](https://discord.js.org/#/) library.
+Gerebot is a bot for Discord which was written by [me](https://github.com/KieranLProctor) using the [Discord.js](https://discord.js.org/#/) library.
 I created this project as something fun to do on the side and also to add to my Discord server to improve the experience.
 
 ## Installation
