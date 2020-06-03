@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 const axios = require('axios');
 const moment = require('moment');
 require('dotenv').config();
+const mapboxToken = process.env.MAPBOX_TOKEN;
+const darkskyToken = DARKSKY_TOKEN;
 
 module.exports = {
   name: 'weather',
@@ -13,7 +15,7 @@ module.exports = {
   args: true,
   execute(message, args) {
     const getWeather = async args => {
-      let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${args}.json?access_token=${config.apiKeys.mapbox}`;
+      let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${args}.json?access_token=${mapboxToken}`;
 
       axios
         .get(url)
@@ -27,7 +29,7 @@ module.exports = {
     };
 
     const getWeatherData = (lat, long) => {
-      let url = `https://api.darksky.net/forecast/${config.apiKeys.darksky}/${lat},${long}?units=si`;
+      let url = `https://api.darksky.net/forecast/${darkskyToken}/${lat},${long}?units=si`;
 
       axios.get(url).then(res => {
         let embed = new Discord.RichEmbed();
