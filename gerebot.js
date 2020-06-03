@@ -16,6 +16,7 @@ client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
 
 // Sets current time to var so can be used later.
+moment().locale('en-gb');
 const currentTime = moment().format('LTS');
 
 // Getting all of the files in the dir.
@@ -33,6 +34,8 @@ for (const file of commandFiles) {
 // Bot ready event listener.
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag} at ${currentTime}!`);
+
+  client.user.setActivity(`${prefix}help`);
 });
 
 // Bot message event listener.

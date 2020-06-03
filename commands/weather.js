@@ -4,7 +4,7 @@ const axios = require('axios');
 const moment = require('moment');
 require('dotenv').config();
 const mapboxToken = process.env.MAPBOX_TOKEN;
-const darkskyToken = DARKSKY_TOKEN;
+const darkskyToken = process.env.DARKSKY_TOKEN;
 const embedColor = process.env.EMBED_COLOR;
 
 module.exports = {
