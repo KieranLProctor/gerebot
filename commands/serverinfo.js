@@ -29,6 +29,7 @@ module.exports = {
     }
 
     let guild = message.guild;
+    
     if (!guild || !guild.avilable) return message.reply(`This guild isn't available for data retrieval.`);
 
     embed.setAuthor(message.author.username)

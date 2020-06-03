@@ -10,6 +10,7 @@ module.exports = {
   execute(message) {
     if (!message.member.voiceChannel) return message.reply(`I'm not currently in a voice channel!`);
 
-    message.member.voiceChannel.leave();
+    message.member.voiceChannel.leave()
+    message.channel.send(`✔ Successfully disconnected from \`${message.member.voiceChannel.name}\``);
   }
 };
