@@ -1,5 +1,6 @@
-const config = require('../config.json');
+// Dependencies.
 const Discord = require('discord.js');
+require('dotenv').config();
 
 module.exports = {
   name: "leave",

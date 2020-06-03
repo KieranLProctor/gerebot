@@ -1,7 +1,8 @@
-const axios = require('axios');
+// Dependencies.
 const Discord = require('discord.js');
+const axios = require('axios');
 const moment = require('moment');
-const config = require('../config.json');
+require('dotenv').config();
 
 module.exports = {
   name: 'weather',

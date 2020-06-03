@@ -1,6 +1,7 @@
-const config = require('../config.json');
+// Dependencies.
 const Discord = require('discord.js');
 const axios = require('axios');
+require('dotenv').config();
 
 module.exports = {
   name: "meme",
@@ -15,9 +16,7 @@ module.exports = {
     axios
       .get(url)
       .then(res => {
-        let memeURL = res.data.url;
-
-        message.channel.send(memeURL);
+        message.channel.send(res.data.url);
       })
       .catch(err => console.log(err));
   }
