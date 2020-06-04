@@ -1,7 +1,7 @@
 // Dependencies.
 const Discord = require('discord.js');
+const config = require('../config.json');
 require('dotenv').config();
-const embedColor = process.env.EMBED_COLOR;
 
 module.exports = {
   name: "join",
@@ -18,7 +18,7 @@ module.exports = {
         console.log(connection.channel.members.size);
 
         embed.setAuthor(message.author.username)
-          .setColor(embedColor)
+          .setColor(config.colors.embed)
           .setDescription('Successfully joined the voice channel.')
           .addField('¬ Name', connection.channel.name, true)
           .addField('¬ Limit', connection.channel.userLimit, true)

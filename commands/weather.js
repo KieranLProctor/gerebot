@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const axios = require('axios');
 const moment = require('moment');
+const config = require('../config.json');
 require('dotenv').config();
 const mapboxToken = process.env.MAPBOX_TOKEN;
 const darkskyToken = process.env.DARKSKY_TOKEN;
@@ -24,6 +25,8 @@ module.exports = {
           let lat = res.data.features[1].center[1];
           let long = res.data.features[1].center[0];
 
+          console.log(res);
+
           return getWeatherData(lat, long);
         })
         .catch(err => console.log(err));
@@ -36,7 +39,7 @@ module.exports = {
         let embed = new Discord.RichEmbed();
 
         embed.setAuthor(message.author.username)
-          .setColor(embedColor)
+          .setColor(config.colors.embed)
           .setDescription(`Weather information for ${args}.`)
           .addField('¬ Time', moment().format('llll'), true)
           .addField('¬ Summary', res.data.currently.summary, true)

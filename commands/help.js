@@ -1,6 +1,6 @@
 // Dependencies.
+const config = require('../config.json');
 require('dotenv').config();
-const prefix = process.env.PREFIX;
 
 // Returning the command.
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
       data.push(`\`Here's a list of all my commands:\``);
       data.push(`\`${commands.map(command => command.name).join(',\n')}\``);
       data.push(
-        `\nYou can send \`${prefix}help <command>\` to get info on a specific command!`
+        `\nYou can send \`${config.prefix}help <command>\` to get info on a specific command!`
       );
 
       return message.author
@@ -53,7 +53,7 @@ module.exports = {
       data.push(`**Description:** ${command.description}`);
 
     if (command.usage)
-      data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
+      data.push(`**Usage:** ${config.prefix}${command.name} ${command.usage}`);
 
     data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
 

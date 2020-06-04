@@ -2,11 +2,11 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const moment = require('moment');
+const config = require('./config.json');
 require('dotenv').config();
 
-// Config items.
+// .env items.
 const token = process.env.DISCORD_TOKEN;
-const prefix = process.env.PREFIX;
 
 // New instance of discord client + collection.
 const client = new Discord.Client();
@@ -35,16 +35,16 @@ for (const file of commandFiles) {
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag} at ${currentTime}!`);
 
-  client.user.setActivity(`${prefix}help`);
+  client.user.setActivity(`${config.prefix}help`);
 });
 
 // Bot message event listener.
 client.on('message', message => {
   // If msg doesnt start with prefix or sent from bot => return.
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
   // Gets the args from the message.
-  let args = message.content.slice(prefix.length).split(/ +/);
+  let args = message.content.slice(config.prefix.length).split(/ +/);
   let commandName = args.shift().toLowerCase();
 
   // Assigns command to a var to make easier.
@@ -68,7 +68,7 @@ client.on('message', message => {
     let reply = `${message.author}, You didn't provide any arguments!`;
 
     if (command.usage) {
-      reply += `\nThe correct usage would be: \`${prefix}${command.name} ${
+      reply += `\nThe correct usage would be: \`${config.prefix}${command.name} ${
         command.usage
         }\``;
     }
@@ -111,8 +111,8 @@ client.on('message', message => {
   } catch (error) {
     console.log(error);
     message.reply(
-      `There was an error trying to execute ${prefix +
-      commandName}. Do ${prefix}help to list the commands I can do!`
+      `There was an error trying to execute ${config.prefix +
+      commandName}. Do ${config.prefix}help to list the commands I can do!`
     );
   }
 });
