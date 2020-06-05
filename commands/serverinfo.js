@@ -9,7 +9,7 @@ module.exports = {
   aliases: ["servinfo", "sinfo", "sinf"],
   args: false,
   execute(message) {
-    let embed = new Discord.RichEmbed();
+    let embed = new Discord.MessageEmbed();
     let region = {
       "brazil": ":flag_br Brazil",
       "eu-central": ":flag_eu: Central Europe",
@@ -29,18 +29,22 @@ module.exports = {
     }
 
     let guild = message.guild;
-    
+
     if (!guild || !guild.avilable) return message.reply(`This guild isn't available for data retrieval.`);
 
     embed.setAuthor(message.author.username)
       .setColor(config.colors.embed)
       .setDescription('Information about the server.')
-      .addField('¬ Name', message.guild.name, true)
-      .addField('¬ ID', message.guild.id, true)
-      .addField('¬ Owner', `${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`, true)
-      .addField('¬ Region', region[message.guild.region], true)
-      .addField('¬ Channels', message.guild.channels.size, true)
-      .addField('¬ Roles', message.guild.roles.size, true)
+      .addFields(
+        { name: '¬ Name', value: message.guild.name, inline: true },
+        { name: '¬ ID', value: message.guild.id, inline: true },
+        { name: '¬ Owner', value: `${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`, inline: true }
+      )
+      .addFields(
+        { name: '¬ Region', value: region[message.guild.region], inline: true },
+        { name: '¬ Channels', value: message.guild.channels.size, inline: true },
+        { name: '¬ Roles', value: message.guild.roles.size, inline: true }
+      )
       .setTimestamp();
 
     message.channel.send(embed);

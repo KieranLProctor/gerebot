@@ -10,9 +10,9 @@
   "author": "Kieran Proctor",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.1",
-    "discord.js": "^11.4.2",
+    "axios": "^0.19.2",
+    "discord.js": "^12.2.0",
     "dotenv": "^7.0.0",
-    "moment": "^2.24.0"
+    "moment": "^2.26.0"
   }
 }

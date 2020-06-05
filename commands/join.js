@@ -9,13 +9,13 @@ module.exports = {
   aliases: ["j", "jv", "jvc"],
   args: false,
   execute(message) {
-    let embed = new Discord.RichEmbed();
+    let embed = new Discord.MessageEmbed();
 
-    if (!message.member.voiceChannel) return message.reply(`You must be in a voice channel for me to join!`);
+    if (!message.member.voice.channel) return message.reply(`You must be in a voice channel for me to join!`);
 
-    message.member.voiceChannel.join()
+    message.member.voice.channel.join()
       .then(connection => {
-        console.log(connection.channel.members.size);
+        console.log(connection.channel);
 
         embed.setAuthor(message.author.username)
           .setColor(config.colors.embed)
@@ -28,10 +28,10 @@ module.exports = {
 
         message.channel.send(embed);
 
-        message.member.voiceChannel.leave()
+        message.member.voice.channel.leave()
       })
       .catch(err => {
-        message.channel.send(`❌ Error joining \`${message.member.voiceChannel.name}\``);
+        message.channel.send(`❌ Error joining \`${message.member.voice.channel.name}\``);
       });
   }
 };
