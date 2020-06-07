@@ -3,7 +3,6 @@ const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
 const ytsr = require('ytsr');
 const config = require('../config.json');
-require('dotenv').config();
 
 module.exports = {
   name: 'play',
@@ -53,10 +52,6 @@ module.exports = {
       let video = await ytsr(args.toString().replace(/,/g, ' '));
 
       return video;
-    }
-
-    const selectYouTubeSearchResult = async args => {
-
     }
 
     joinVoiceChannel(args);

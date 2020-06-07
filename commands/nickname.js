@@ -7,7 +7,7 @@ module.exports = {
   description:
     'Sets a nickname for the specified user.',
   aliases: ['nick', 'nn', 'name', 'nickn'],
-  usage: '@<user> <nickname>',
+  usage: '<@user> <nickname>',
   args: true,
   execute(message, args) {
     const user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
