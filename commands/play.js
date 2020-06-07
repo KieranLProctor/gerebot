@@ -22,17 +22,10 @@ module.exports = {
         .then(async connection => {
           let video = await searchYouTubeAsync(args);
           let url = video.items[0].link;
-
-          console.log(video.items[0]);
-
-          // if(video.items.length > 1) {
-          //   let result = await selectYouTubeSearchResult(video);
-
-          //   url = result.link;
-          // }
-
           const stream = ytdl(url, { filter: 'audioonly' });
           const dispatcher = connection.play(stream);
+
+          console.log(video.items[0]);
 
           embed.setAuthor(message.author.username)
             .setColor(config.colors.embed)
