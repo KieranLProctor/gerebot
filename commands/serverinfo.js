@@ -4,31 +4,31 @@ const config = require('../config.json');
 require('dotenv').config();
 
 module.exports = {
-  name: "serverinfo",
-  description: "Displays information about the server.",
-  aliases: ["servinfo", "sinfo", "sinf"],
+  name: 'serverinfo',
+  description: 'Displays information about the server.',
+  aliases: ['servinfo', 'sinfo', 'sinf'],
   args: false,
   execute(message) {
-    let embed = new Discord.MessageEmbed();
-    let region = {
-      "brazil": ":flag_br Brazil",
-      "eu-central": ":flag_eu: Central Europe",
-      "singapore": ":flag_sg: Singapore",
-      "us-central": ":flag_us: U.S. Central",
-      "sydney": ":flag_au: Sydney",
-      "us-east": ":flag_us: U.S. East",
-      "us-south": ":flag_us: U.S. South",
-      "us-west": ":flag_us: U.S. West",
-      "eu-west": ":flag_eu: Western Europe",
-      "vip-us-east": ":flag_us: VIP U.S. East",
-      "london": ":flag_gb: London",
-      "amsterdam": ":flag_nl: Amsterdam",
-      "hongkong": ":flag_hk: Hong Kong",
-      "russia": ":flag_ru: Russia",
-      "southafrica": ":flag_za:  South Africa"
+    const embed = new Discord.MessageEmbed();
+    const region = {
+      'brazil': ':flag_br Brazil',
+      'eu-central': ':flag_eu: Central Europe',
+      'singapore': ':flag_sg: Singapore',
+      'us-central': ':flag_us: U.S. Central',
+      'sydney': ':flag_au: Sydney',
+      'us-east': ':flag_us: U.S. East',
+      'us-south': ':flag_us: U.S. South',
+      'us-west': ':flag_us: U.S. West',
+      'eu-west': ':flag_eu: Western Europe',
+      'vip-us-east': ':flag_us: VIP U.S. East',
+      'london': ':flag_gb: London',
+      'amsterdam': ':flag_nl: Amsterdam',
+      'hongkong': ':flag_hk: Hong Kong',
+      'russia': ':flag_ru: Russia',
+      'southafrica': ':flag_za:  South Africa'
     }
 
-    let guild = message.guild;
+    const guild = message.guild;
 
     if (!guild || !guild.avilable) return message.reply(`This guild isn't available for data retrieval.`);
 

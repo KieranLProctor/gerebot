@@ -20,9 +20,7 @@ moment().locale('en-gb');
 const currentTime = moment().format('LTS');
 
 // Getting all of the files in the dir.
-const commandFiles = fs
-  .readdirSync('./commands')
-  .filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 // Looping + adding every file in commandFiles.
 for (const file of commandFiles) {
@@ -44,15 +42,11 @@ client.on('message', message => {
   if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
   // Gets the args from the message.
-  let args = message.content.slice(config.prefix.length).split(/ +/);
-  let commandName = args.shift().toLowerCase();
+  const args = message.content.slice(config.prefix.length).split(/ +/);
+  const commandName = args.shift().toLowerCase();
 
   // Assigns command to a var to make easier.
-  const command =
-    client.commands.get(commandName) ||
-    client.commands.find(
-      cmd => cmd.aliases && cmd.aliases.includes(commandName)
-    );
+  const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
   // If isnt a command => return.
   if (!command) return;
@@ -68,9 +62,7 @@ client.on('message', message => {
     let reply = `${message.author}, You didn't provide any arguments!`;
 
     if (command.usage) {
-      reply += `\nThe correct usage would be: \`${config.prefix}${command.name} ${
-        command.usage
-        }\``;
+      reply += `\nThe correct usage would be: \`${config.prefix}${command.name} ${command.usage}\``;
     }
 
     return message.channel.send(reply);
@@ -93,11 +85,8 @@ client.on('message', message => {
     // If has time left on cooldown dont run.
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return message.reply(
-        `please wait ${timeLeft.toFixed(
-          1
-        )} more second(s) before reusing the \`${command.name}\` command.`
-      );
+
+      return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
     }
   }
 
@@ -110,10 +99,8 @@ client.on('message', message => {
     command.execute(message, args);
   } catch (error) {
     console.log(error);
-    message.reply(
-      `There was an error trying to execute ${config.prefix +
-      commandName}. Do ${config.prefix}help to list the commands I can do!`
-    );
+
+    message.reply(`There was an error trying to execute ${config.prefix + commandName}. Do ${config.prefix}help to list the commands I can do!`);
   }
 });
 

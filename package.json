@@ -10,9 +10,12 @@
   "author": "Kieran Proctor",
   "license": "MIT",
   "dependencies": {
+    "@discordjs/opus": "^0.3.2",
     "axios": "^0.19.2",
     "discord.js": "^12.2.0",
     "dotenv": "^7.0.0",
-    "moment": "^2.26.0"
+    "moment": "^2.26.0",
+    "ytdl-core": "^2.1.7",
+    "ytsr": "^0.1.15"
   }
 }
