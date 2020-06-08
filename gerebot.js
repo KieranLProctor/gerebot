@@ -8,9 +8,10 @@ require('dotenv').config();
 // .env items.
 const token = process.env.DISCORD_TOKEN;
 
-// New instance of discord client + collection.
+// New instance of discord client & command + queue collections.
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+client.queue = new Discord.Collection();
 
 // New collection for commands on a cooldown.
 const cooldowns = new Discord.Collection();
@@ -22,10 +23,10 @@ const currentTime = moment().format('LTS');
 // Getting all of the files in the dir.
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-// Looping + adding every file in commandFiles.
+// Looping & adding every file in commandFiles.
 for (const file of commandFiles) {
   let command = require(`./commands/${file}`);
-  // Sets key in collection with command name + value.
+  // Sets key in collection with command name & value.
   client.commands.set(command.name, command);
 }
 
@@ -45,7 +46,7 @@ client.on('message', message => {
   const args = message.content.slice(config.prefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
 
-  // Assigns command to a var to make easier.
+  // Assigns command to a var to make easier to do logic.
   const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
   // If isnt a command => return.

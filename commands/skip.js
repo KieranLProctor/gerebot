@@ -3,9 +3,9 @@ const Discord = require('discord.js');
 require('dotenv').config();
 
 module.exports = {
-  name: 'leave',
-  description: 'Leaves the voice channel the bot is connected to.',
-  aliases: ['l', 'lc', 'lvc'],
+  name: 'skip',
+  description: 'Skips the track currently playing.',
+  aliases: ['s', 'skp'],
   args: false,
   execute(message) {
     const voiceChannel = message.member.voice.channel;
