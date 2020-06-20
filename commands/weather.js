@@ -13,7 +13,7 @@ module.exports = {
   aliases: ['wthr', 'winf', 'winfo', 'forecast'],
   usage: '<location>',
   args: true,
-  execute(message, args) {
+  execute(client, message, args) {
     const getWeather = async args => {
       const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${args}.json?access_token=${mapboxToken}`;
 

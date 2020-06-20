@@ -7,13 +7,18 @@ module.exports = {
   description: 'Displays all of the tracks in the play queue.',
   aliases: ['q'],
   args: false,
-  execute(message) {
-    const voiceChannel = message.member.voice.channel;
+  async execute(client, message) {
+    const guildID = message.guild.id;
 
-    if (!voiceChannel) return message.reply(`I'm not currently in a voice channel!`);
+    let voiceChannel = message.member.voice.channel;
+    if (!voiceChannel) return message.reply('❌ You must be in a voice channel to see the queue!');
 
-    voiceChannel.leave()
+    let queue = await client.player.getQueue(guildID);
+    if(!queue) return message.reply(`❌ There isn't anything in the queue!`);
 
-    message.channel.send(`✔ Successfully disconnected from \`${voiceChannel.name}\``);
+    let i = queue.songs.map((song, j) => {
+      return `${j === 0 ? 'Current' : `${j+1}`}- ${song.name} : ${song.author}`;
+    }).join('\n');
+    message.channel.send(i);
   }
 };

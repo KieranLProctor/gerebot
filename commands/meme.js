@@ -9,7 +9,7 @@ module.exports = {
   aliases: ['mem', 'meem'],
   usage: '[<subreddit>]',
   args: false,
-  execute(message, args) {
+  execute(client, message, args) {
     const subreddit = (args.length != 0) ? `/${args}` : '';
     const url = `https://meme-api.herokuapp.com/gimme${subreddit}`;
 

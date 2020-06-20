@@ -1,59 +1,56 @@
 // Dependencies.
 const Discord = require('discord.js');
-const ytdl = require('ytdl-core');
-const ytsr = require('ytsr');
 const config = require('../config.json');
+const moment = require('moment');
 
 module.exports = {
   name: 'play',
   description: 'Plays Youtube videos to the voice channel you are connected to.',
-  aliases: ['p', 'pyt', 'pm'],
-  usage: '<link>',
+  aliases: ['pyt', 'pm', 'p'],
+  usage: '<query|link>',
   args: true,
-  execute(message, args) {
+  async execute(client, message, args) {
     const embed = new Discord.MessageEmbed();
-    const voiceChannel = message.member.voice.channel;
+    const guildID = message.guild.id;
+    const toPlay = args.toString().replace(/,/g, ' ');
 
-    if (!voiceChannel) return message.reply('You must be in a voice channel before I can play!');
+    let voiceChannel = message.member.voice.channel;
+    if (!voiceChannel) return message.reply('❌ You must be in a voice channel before I can play!');
 
-    const joinVoiceChannel = args => {
-      voiceChannel.join()
-        .then(async connection => {
-          let video = await searchYouTubeAsync(args);
-          let url = video.items[0].link;
-          const stream = ytdl(url, { filter: 'audioonly' });
-          const dispatcher = connection.play(stream);
+    // If already playing => add song to the queue.
+    let playing = client.player.isPlaying(guildID);
+    if (playing) {
+      let song = await client.player.addToQueue(guildID, toPlay, message.member.user.tag);
 
-          console.log(video.items[0]);
+      // embed.setAuthor(message.author.username)
+      //   .setColor(config.colors.embed)
+      //   .setDescription(`[${track.name}](${track.url})`)
+      //   .addField('¬ Playing in', voiceChannel.name, true)
+      //   .addFields(
+      //     { name: '¬ Duration', value: moment(track.duration).format('HH:mm:ss'), inline: true },
+      //     { name: '¬ Channel', value: track.author, inline: true },
+      //     { name: '¬ Requester', value: track.requestedBy, inline: true }
+      //   )
+      //   .addField('¬ Users', 1, true)
+      //   .setTimestamp();
 
-          embed.setAuthor(message.author.username)
-            .setColor(config.colors.embed)
-            .setDescription(`[${video.items[0].title}](${video.items[0].link})`)
-            .addField('¬ Name', connection.channel.name, true)
-            .addFields(
-              { name: '¬ Duration', value: video.items[0].duration, inline: true },
-              { name: '¬ Live', value: video.items[0].live, inline: true },
-              { name: '¬ Channel', value: video.items[0].author.name, inline: true }
-            )
-            .addField('¬ Users', connection.channel.members.size - 1, true)
-            .setTimestamp();
+      message.channel.send('added to queue');
+    } else {
+      let song = await client.player.play(voiceChannel, toPlay, message.member.user.tag);
 
-          message.channel.send(embed);
+      message.channel.send('playing');
 
-          dispatcher.on('end', () => voiceChannel.leave());
-        })
-        .catch(err => {
-          console.log(err);
-          message.channel.send(`❌ Error joining \`${voiceChannel.name}\``);
-        });
+      song.queue.on('end', () => {
+        message.channel.send('finished');
+      });
+
+      song.queue.on('songChanged', (oldSong, newSong, skipped, repeatMode) => {
+        if (repeatMode) {
+          message.channel.send('repeat');
+        } else {
+          message.channel.send('play');
+        }
+      });
     }
-
-    const searchYouTubeAsync = async args => {
-      let video = await ytsr(args.toString().replace(/,/g, ' '));
-
-      return video;
-    }
-
-    joinVoiceChannel(args);
   }
 };

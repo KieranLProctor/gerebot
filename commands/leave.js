@@ -7,13 +7,12 @@ module.exports = {
   description: 'Leaves the voice channel the bot is connected to.',
   aliases: ['l', 'lc', 'lvc'],
   args: false,
-  execute(message) {
-    const voiceChannel = message.member.voice.channel;
-
+  execute(client, message) {
+    let voiceChannel = message.member.voice.channel;
     if (!voiceChannel) return message.reply(`I'm not currently in a voice channel!`);
 
-    voiceChannel.leave()
-
+    // Leave and send message.
+    voiceChannel.leave();
     message.channel.send(`✔ Successfully disconnected from \`${voiceChannel.name}\``);
   }
 };

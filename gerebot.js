@@ -2,16 +2,20 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const moment = require('moment');
+const { Player } = require("discord-player");
 const config = require('./config.json');
 require('dotenv').config();
 
 // .env items.
 const token = process.env.DISCORD_TOKEN;
 
-// New instance of discord client & command + queue collections.
+// New instance of discord client & command collection.
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-client.queue = new Discord.Collection();
+
+// Discord-player instance & queue.
+const player = new Player(client, process.env.YOUTUBE_TOKEN);
+client.player = player;
 
 // New collection for commands on a cooldown.
 const cooldowns = new Discord.Collection();
@@ -83,7 +87,7 @@ client.on('message', message => {
   if (timestamps.has(message.author.id)) {
     const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
-    // If has time left on cooldown dont run.
+    // If has time left on cooldown don't run.
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
 
@@ -97,7 +101,7 @@ client.on('message', message => {
 
   // Tries to exec the command the user typed.
   try {
-    command.execute(message, args);
+    command.execute(client, message, args);
   } catch (error) {
     console.log(error);
 

@@ -9,7 +9,7 @@ module.exports = {
   aliases: ['nick', 'nn', 'name', 'nickn'],
   usage: '<@user> <nickname>',
   args: true,
-  execute(message, args) {
+  execute(client, message, args) {
     const user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 
     message.guild.fetchMember(user.id).then(res => {

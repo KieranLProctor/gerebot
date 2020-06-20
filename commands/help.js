@@ -9,7 +9,7 @@ module.exports = {
   aliases: ['commands'],
   usage: '<command name>',
   cooldown: 5,
-  execute(message, args) {
+  execute(client, message, args) {
     const data = [];
     const { commands } = message.client;
 
@@ -40,9 +40,7 @@ module.exports = {
       commands.get(name) ||
       commands.find(c => c.aliases && c.aliases.includes(name));
 
-    if (!command) {
-      return message.reply(`that's not a valid command!`);
-    }
+    if (!command) return message.reply(`that's not a valid command!`);
 
     data.push(`**Name:** ${command.name}`);
 

@@ -1,19 +1,19 @@
 // Dependencies.
 const Discord = require('discord.js');
-require('dotenv').config();
+const config = require('../config.json');
 
 module.exports = {
   name: 'skip',
   description: 'Skips the track currently playing.',
-  aliases: ['s', 'skp'],
+  aliases: ['skp', 'st', 's'],
   args: false,
-  execute(message) {
-    const voiceChannel = message.member.voice.channel;
+  async execute(client, message) {
+    const guildID = message.guild.id;
 
-    if (!voiceChannel) return message.reply(`I'm not currently in a voice channel!`);
+    let voiceChannel = message.member.voice.channel;
+    if (!voiceChannel) return message.reply('❌ You must be in a voice channel before I can skip the track currently playing!');
 
-    voiceChannel.leave()
-
-    message.channel.send(`✔ Successfully disconnected from \`${voiceChannel.name}\``);
+    let song = await client.player.skip(guildID);
+    message.channel.send('skipped');
   }
 };

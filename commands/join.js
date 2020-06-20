@@ -1,17 +1,16 @@
 // Dependencies.
 const Discord = require('discord.js');
 const config = require('../config.json');
-require('dotenv').config();
 
 module.exports = {
   name: 'join',
   description: 'Joins the voice channel you are connected to.',
-  aliases: ['j', 'jv', 'jvc'],
+  aliases: ['jvc', 'jv', 'j'],
   args: false,
-  execute(message) {
+  execute(client, message) {
     const embed = new Discord.MessageEmbed();
-    const voiceChannel = message.member.voice.channel;
 
+    let voiceChannel = message.member.voice.channel;
     if (!voiceChannel) return message.reply(`You must be in a voice channel for me to join!`);
 
     voiceChannel.join()
@@ -34,7 +33,9 @@ module.exports = {
 
         voiceChannel.leave()
       })
-      .catch(err => {
+      .catch(error => {
+        console.log(error);
+
         message.channel.send(`❌ Error joining \`${voiceChannel.name}\``);
       });
   }

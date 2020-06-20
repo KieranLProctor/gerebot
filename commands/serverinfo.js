@@ -8,7 +8,7 @@ module.exports = {
   description: 'Displays information about the server.',
   aliases: ['servinfo', 'sinfo', 'sinf'],
   args: false,
-  execute(message) {
+  execute(client, message) {
     const embed = new Discord.MessageEmbed();
     const region = {
       'brazil': ':flag_br Brazil',
