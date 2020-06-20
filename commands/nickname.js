@@ -14,6 +14,6 @@ module.exports = {
 
     message.guild.fetchMember(user.id).then(res => {
       res.setNickname(args[1]);
-    }).catch(err => console.log(err));
+    }).catch(error => console.log(error));
   }
 };

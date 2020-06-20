@@ -5,7 +5,7 @@ const config = require('../config.json');
 module.exports = {
   name: 'loop',
   description: 'Loops the track currently playing.',
-  aliases: ['repeat', 'l'],
+  aliases: ['repeat', 'rpt', 'l'],
   args: false,
   execute(client, message) {
     const guildID = message.guild.id;

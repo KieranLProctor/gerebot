@@ -4,14 +4,14 @@ const config = require('../config.json');
 
 module.exports = {
   name: 'pause',
-  description: 'Pauses the currently playing track.',
+  description: 'Pauses the track currently playing.',
   aliases: ['pse'],
   args: false,
   async execute(client, message) {
     const guildID = message.guild.id;
 
     let voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('❌ You must be in a voice channel to repeat the currently playing track!');
+    if (!voiceChannel) return message.reply('❌ You must be in a voice channel to repeat the track currently playing!');
 
     let playing = client.player.isPlaying(guildID);
     if (!playing) return message.reply('❌ There is no track currently playing!');
