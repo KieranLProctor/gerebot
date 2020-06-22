@@ -1,7 +1,6 @@
 // Dependencies.
 const Discord = require('discord.js');
 const config = require('../config.json');
-require('dotenv').config();
 
 module.exports = {
   name: 'serverinfo',
@@ -10,6 +9,7 @@ module.exports = {
   args: false,
   execute(client, message) {
     const embed = new Discord.MessageEmbed();
+    const guild = message.guild;
     const region = {
       'brazil': ':flag_br Brazil',
       'eu-central': ':flag_eu: Central Europe',
@@ -28,22 +28,20 @@ module.exports = {
       'southafrica': ':flag_za:  South Africa'
     }
 
-    const guild = message.guild;
-
     if (!guild || !guild.avilable) return message.reply(`This guild isn't available for data retrieval.`);
 
     embed.setAuthor(message.author.username)
       .setColor(config.colors.embed)
       .setDescription('Information about the server.')
       .addFields(
-        { name: '¬ Name', value: message.guild.name, inline: true },
-        { name: '¬ ID', value: message.guild.id, inline: true },
-        { name: '¬ Owner', value: `${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`, inline: true }
+        { name: '¬ Name', value: guild.name, inline: true },
+        { name: '¬ ID', value: guild.id, inline: true },
+        { name: '¬ Owner', value: `${guild.owner.user.username}#${guild.owner.user.discriminator}`, inline: true }
       )
       .addFields(
-        { name: '¬ Region', value: region[message.guild.region], inline: true },
-        { name: '¬ Channels', value: message.guild.channels.size, inline: true },
-        { name: '¬ Roles', value: message.guild.roles.size, inline: true }
+        { name: '¬ Region', value: region[guild.region], inline: true },
+        { name: '¬ Channels', value: guild.channels.size, inline: true },
+        { name: '¬ Roles', value: guild.roles.size, inline: true }
       )
       .setTimestamp();
 

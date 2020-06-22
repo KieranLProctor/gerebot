@@ -14,12 +14,12 @@ module.exports = {
     const guildID = message.guild.id;
     const toPlay = args.toString().replace(/,/g, ' ');
 
-    let voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('❌ You must be in a voice channel before I can play!');
+    let userVoiceChannel = message.member.voice.channel;
+    if (!userVoiceChannel) return message.reply('❌ You must be in a voice channel before I can play!');
 
     // If already playing => add song to the queue.
-    let playing = client.player.isPlaying(guildID);
-    if (playing) {
+    let isPlaying = client.player.isPlaying(guildID);
+    if (isPlaying) {
       let song = await client.player.addToQueue(guildID, toPlay, message.member.user.tag);
 
       // embed.setAuthor(message.author.username)
@@ -36,7 +36,7 @@ module.exports = {
 
       message.channel.send('added to queue');
     } else {
-      let song = await client.player.play(voiceChannel, toPlay, message.member.user.tag);
+      let song = await client.player.play(userVoiceChannel, toPlay, message.member.user.tag);
 
       message.channel.send('playing');
 

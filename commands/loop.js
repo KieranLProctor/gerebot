@@ -7,11 +7,14 @@ module.exports = {
   description: 'Loops the track currently playing.',
   aliases: ['repeat', 'rpt', 'l'],
   args: false,
-  execute(client, message) {
+  async execute(client, message) {
     const guildID = message.guild.id;
 
-    let voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('❌ You must be in a voice channel before I can loop the track currently playing!');
+    let userVoiceChannel = message.member.voice.channel;
+    if (!userVoiceChannel) return message.reply('❌ You must be in a voice channel before I can loop the track currently playing!');
+
+    let isPlaying = await client.player.isPlaying(guildID);
+    if (!isPlaying) return message.reply(`❌ I'm not currently playing anything!`);
 
     client.player.setRepeatMode(guildID, true);
     message.channel.send('looping');

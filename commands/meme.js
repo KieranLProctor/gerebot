@@ -1,12 +1,11 @@
 // Dependencies.
 const Discord = require('discord.js');
 const axios = require('axios');
-require('dotenv').config();
 
 module.exports = {
   name: 'meme',
-  description: 'Sends an edgy meme from reddit to the channel.',
-  aliases: ['mem', 'meem'],
+  description: 'Send a random or specified subreddits meme to the channel.',
+  aliases: ['meem', 'mem'],
   usage: '[<subreddit>]',
   args: false,
   execute(client, message, args) {
@@ -16,6 +15,8 @@ module.exports = {
     axios
       .get(url)
       .then(res => {
+        console.log(subreddit);
+
         message.channel.send(res.data.url);
       })
       .catch(err => console.log(err));

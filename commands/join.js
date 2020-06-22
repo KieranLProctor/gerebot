@@ -10,13 +10,11 @@ module.exports = {
   execute(client, message) {
     const embed = new Discord.MessageEmbed();
 
-    let voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply(`You must be in a voice channel for me to join!`);
+    let userVoiceChannel = message.member.voice.channel;
+    if (!userVoiceChannel) return message.reply(`You must be in a voice channel for me to join!`);
 
-    voiceChannel.join()
+    userVoiceChannel.join()
       .then(connection => {
-        console.log(connection.channel);
-
         embed.setAuthor(message.author.username)
           .setColor(config.colors.embed)
           .setDescription('Successfully joined the voice channel.')
@@ -30,13 +28,11 @@ module.exports = {
           .setTimestamp();
 
         message.channel.send(embed);
-
-        voiceChannel.leave()
       })
       .catch(error => {
         console.log(error);
 
-        message.channel.send(`❌ Error joining \`${voiceChannel.name}\``);
+        message.channel.send(`❌ Error joining \`${userVoiceChannel.name}\``);
       });
   }
 };

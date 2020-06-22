@@ -10,8 +10,8 @@ module.exports = {
   async execute(client, message) {
     const guildID = message.guild.id;
 
-    let voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('❌ You must be in a voice channel to see the queue!');
+    let userVoiceChannel = message.member.voice.channel;
+    if (!userVoiceChannel) return message.reply('❌ You must be in a voice channel to see the queue!');
 
     let queue = await client.player.getQueue(guildID);
     if(!queue) return message.reply(`❌ There isn't anything in the queue!`);
