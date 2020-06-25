@@ -8,7 +8,7 @@ module.exports = {
   aliases: ['lvc', 'lc', 'l'],
   args: false,
   execute(client, message) {
-    let clientChannel = client.bot.;
+    //let clientChannel = client.bot.;
 
     // Leave and send message.
     let userVoiceChannel = message.member.voice.channel;

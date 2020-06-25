@@ -15,9 +15,9 @@ module.exports = {
     if (!userVoiceChannel) return message.reply('❌ You must be in a voice channel before I can skip the track currently playing!');
 
     let isPlaying = client.player.isPlaying(guildID);
-    if(!isPlaying) return message.reply(`❌ There isn't a track currently playing!`);
+    if (!isPlaying) return message.reply(`❌ There isn't a track currently playing!`);
 
-    client.player.
+    //client.player.
 
     let song = await client.player.skip(guildID);
     message.channel.send('skipped');

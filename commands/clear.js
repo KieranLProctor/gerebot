@@ -13,11 +13,14 @@ module.exports = {
     let userVoiceChannel = message.member.voice.channel;
     if (!userVoiceChannel) return message.reply('❌ You must be in a voice channel to clear the queue!');
 
-    let queue = client.player.getQueue(guildID);
+    let queue = await client.player.getQueue(guildID);
     if (!queue) return message.channel.send(`❌ No tracks in the queue to clear!`);
 
     // Clear the queue and send message.
-    client.player.clearQueue(guildID);
-    message.channel.send(`✔ All tracks have been removed from the queue!`);
+    client.player.clearQueue(guildID).then(response => {
+      message.channel.send(`✔ All tracks have been removed from the queue!`);
+    }).catch(error => {
+      console.log(error);
+    });
   }
 };

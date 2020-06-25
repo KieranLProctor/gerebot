@@ -30,13 +30,14 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 // Looping & adding every file in commandFiles.
 for (const file of commandFiles) {
   let command = require(`./commands/${file}`);
+
   // Sets key in collection with command name & value.
   client.commands.set(command.name, command);
 }
 
 // Bot ready event listener.
 client.once('ready', () => {
-  console.log(`Logged in as ${client.user.tag} at ${currentTime}!`);
+  console.log(`Logged in as ${client.user.tag} at ${currentTime} for ${client.guilds.cache.size} guild(s)!`);
 
   client.user.setActivity(`${config.prefix}help`);
 });
