@@ -1,6 +1,7 @@
 // Dependencies.
 const Discord = require('discord.js');
 const config = require('../config.json');
+const moment = require('moment');
 
 module.exports = {
   name: 'queue',
@@ -21,24 +22,12 @@ module.exports = {
 
     embed.setAuthor(message.author.username)
       .setColor(config.colors.embed)
-      .setDescription(`Queue for ${userVoiceChannel.name}`)
+      .setDescription(`[Queue for ${userVoiceChannel.name}](www.kieranproctor.com)`)
       .setTimestamp();
 
     queue.songs.forEach((song, i) => {
-      if (i == 0) {
-        embed.addField(`Currently Playing:\n${song.name} - ${song.author}`);
-      } else {
-        if (i == 1) {
-          embed.addField(`Playing Next:\n${song.name} - ${song.author}`);
-        } else {
-          embed.addField(`${song.name} - ${song.author}`);
-        }
-      }
+      embed.addField(`${i == 0 ? '__Currently Playing:__\n' : `__Playing Next:__\n\`${i}.\``} [${song.name}](${song.url}) | \`${moment(song.duration / 60).format('hh:mm:ss')} Requested By: ${song.requestedBy}\``);
     });
-
-    // let i = queue.songs.map((song, j) => {
-    //   return `${j === 0 ? 'Current' : `${j + 1}`}- ${song.name} : ${song.author}`;
-    // }).join('\n');
 
     message.channel.send(embed);
   }
