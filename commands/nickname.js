@@ -12,6 +12,7 @@ module.exports = {
   execute(client, message, args) {
     const user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 
+    // Get the user from their ID and change their username.
     message.guild.fetchMember(user.id).then(res => {
       res.setNickname(args[1]);
     }).catch(error => console.log(error));

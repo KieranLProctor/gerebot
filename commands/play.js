@@ -17,7 +17,7 @@ module.exports = {
     let userVoiceChannel = message.member.voice.channel;
     if (!userVoiceChannel) return message.reply('❌ You must be in a voice channel before I can play!');
 
-    // If already playing => add song to the queue.
+    // Check if currently playing anything if so => add to the queue.
     let isPlaying = client.player.isPlaying(guildID);
     if (isPlaying) {
       let song = await client.player.addToQueue(guildID, toPlay, message.member.user.tag);
@@ -55,14 +55,6 @@ module.exports = {
       song.queue.on('end', () => {
         message.channel.send('no more songs in the queue.');
       });
-
-      // song.queue.on('songChanged', (oldSong, newSong, skipped, repeatMode) => {
-      //   if (repeatMode) {
-      //     message.channel.send('repeat');
-      //   } else {
-      //     message.channel.send('play');
-      //   }
-      // });
     }
   }
 };

@@ -10,9 +10,11 @@ module.exports = {
   execute(client, message) {
     const embed = new Discord.MessageEmbed();
 
+    // Check if user is in a voice channel.
     let userVoiceChannel = message.member.voice.channel;
-    if (!userVoiceChannel) return message.reply(`You must be in a voice channel for me to join!`);
+    if (!userVoiceChannel) return message.reply('❌ You must be in a voice channel to repeat the track currently playing!');
 
+    // Join voice channel and send message.
     userVoiceChannel.join()
       .then(connection => {
         embed.setAuthor(message.author.username)
@@ -32,7 +34,7 @@ module.exports = {
       .catch(error => {
         console.log(error);
 
-        message.channel.send(`❌ Error joining \`${userVoiceChannel.name}\``);
+        message.channel.send(`❌ Error joining \`${userVoiceChannel.name}\`!`);
       });
   }
 };

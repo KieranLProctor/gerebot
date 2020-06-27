@@ -12,11 +12,10 @@ module.exports = {
     const subreddit = (args.length != 0) ? `/${args}` : '';
     const url = `https://meme-api.herokuapp.com/gimme${subreddit}`;
 
+    // Get the meme and send message.
     axios
       .get(url)
       .then(res => {
-        console.log(subreddit);
-
         message.channel.send(res.data.url);
       })
       .catch(err => console.log(err));
