@@ -14,6 +14,8 @@ module.exports = {
     const guildID = message.guild.id;
     const toPlay = args.toString().replace(/,/g, ' ');
 
+    console.log(client.player);
+
     let userVoiceChannel = message.member.voice.channel;
     if (!userVoiceChannel) return message.reply('❌ You must be in a voice channel before I can play!');
 
@@ -27,7 +29,7 @@ module.exports = {
         .setDescription(`[${song.name}](${song.url})`)
         .addField('¬ Playing in', userVoiceChannel.name, true)
         .addFields(
-          { name: '¬ Duration', value: moment(song.duration).format('HH:mm:ss'), inline: true },
+          { name: '¬ Duration', value: song.duration, inline: true },
           { name: '¬ Channel', value: song.author, inline: true },
           { name: '¬ Requester', value: song.requestedBy, inline: true }
         )
@@ -43,7 +45,7 @@ module.exports = {
         .setDescription(`[${song.name}](${song.url})`)
         .addField('¬ Playing in', userVoiceChannel.name, true)
         .addFields(
-          { name: '¬ Duration', value: moment(song.duration).format('HH:mm:ss'), inline: true },
+          { name: '¬ Duration', value: song.duration, inline: true },
           { name: '¬ Channel Name', value: song.author, inline: true },
           { name: '¬ Requested By', value: song.requestedBy, inline: true }
         )

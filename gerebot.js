@@ -37,7 +37,7 @@ for (const file of commandFiles) {
 
 // Bot ready event listener.
 client.once('ready', () => {
-  console.log(`Logged in as ${client.user.tag} at ${currentTime} for ${client.guilds.cache.size} guild(s)!`);
+  console.log(`Logged in as ${client.user.tag} at ${currentTime} serving ${client.guilds.cache.size} guild(s)!`);
 
   client.user.setActivity(`${config.prefix}help`);
 });

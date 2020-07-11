@@ -17,9 +17,13 @@ module.exports = {
     let isPlaying = client.player.isPlaying(guildID);
     if (!isPlaying) return message.reply(`❌ There isn't a track currently playing!`);
 
-    //client.player.
+    if (isNaN(args[0])) return message.reply('❌ You must enter a valid number to seek to!');
 
-    let song = await client.player.skip(guildID);
-    message.channel.send('skipped');
+    let track = await client.player.nowPlaying(guildID);
+    if(args[0] < 0 || args[0] > track.duration) return message.send(`❌ You must enter a value between 0-${track.duration} to seek to!`);
+
+    let song = await client.player.play(userVoiceChannel, track, message.member.user.tag);
+
+    message.channel.send(`seeked to ${args[0]}`);
   }
 };
