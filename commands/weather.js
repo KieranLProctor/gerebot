@@ -53,6 +53,7 @@ module.exports = {
             { name: '¬ Visibility', value: currentData.visibility, inline: true },
             { name: '¬ UV Index', value: currentData.uvIndex, inline: true }
           )
+          .addField(map)
           .setTimestamp();
 
         message.channel.send(embed);
