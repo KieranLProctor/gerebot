@@ -1,6 +1,9 @@
 // Dependencies.
 const Discord = require('discord.js');
-const config = require('../config.json');
+const config = require('../configs/config.json');
+const messages = require('../configs/lang.json');
+
+const language = config.language;
 
 module.exports = {
   name: 'serverinfo',
@@ -28,7 +31,7 @@ module.exports = {
       'southafrica': ':flag_za:  South Africa'
     }
 
-    if (!guild || !guild.avilable) return message.reply(`This guild isn't available for data retrieval.`);
+    if (!guild || !guild.avilable) return message.reply(messages[language].messages.error.guild_command);
 
     embed.setAuthor(message.author.username)
       .setColor(config.colors.embed)

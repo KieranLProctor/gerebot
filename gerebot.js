@@ -3,11 +3,16 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const moment = require('moment');
 const { Player } = require("discord-player");
-const config = require('./config.json');
+const config = require('./configs/config.json');
+const messages = require('./configs/lang.json');
 require('dotenv').config();
+
+// Used to get the correct language from the config.
+const language = config.language.toLowerCase();
 
 // .env items.
 const token = process.env.DISCORD_TOKEN;
+const ownerID = process.env.OWNER;
 
 // New instance of discord client & command collection.
 const client = new Discord.Client();
@@ -59,7 +64,7 @@ client.on('message', message => {
 
   // If command is sent in dm but is guild only => return.
   if (command.guildOnly && message.channel.type !== 'text') {
-    return message.reply(`I can't execute that command inside DMs!`);
+    return message.reply(messages[language].messages.error.guild_command);
   }
 
   // If command req args but doesnt get any => return.
@@ -92,7 +97,7 @@ client.on('message', message => {
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
 
-      return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+      return message.reply(messages[language].messages.error.cooldown);
     }
   }
 
@@ -106,7 +111,7 @@ client.on('message', message => {
   } catch (error) {
     console.log(error);
 
-    message.reply(`There was an error trying to execute ${config.prefix + commandName}. Do ${config.prefix}help to list the commands I can do!`);
+    message.reply(messages[language].messages.error.wrong_command);
   }
 });
 

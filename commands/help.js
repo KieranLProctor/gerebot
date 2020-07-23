@@ -1,5 +1,5 @@
 // Dependencies.
-const config = require('../config.json');
+const config = require('../configs/config.json');
 require('dotenv').config();
 
 // Returning the command.

@@ -1,7 +1,7 @@
 // Dependencies.
 const Discord = require('discord.js');
 const axios = require('axios');
-const config = require('../config.json');
+const config = require('../configs/config.json');
 require('dotenv').config();
 const mapboxToken = process.env.MAPBOX_TOKEN;
 const darkskyToken = process.env.DARKSKY_TOKEN;

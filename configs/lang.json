@@ -1,0 +1,41 @@
+{
+  "english": {
+    "messages": {
+      "error": {
+        "general": "`An unexpected error occurred! Please contact ${ownerID} with the log file.`",
+        "bot_perm": "I don't have sufficient permissions to perform that action!",
+        "user_perm": "You don't have sufficient permissions to perform that action!",
+        "cooldown": "`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \\`${command.name}\\` command!`",
+        "guild_command": "This command can only be executed in a guild!",
+        "wrong_command": "`There was an error trying to execute ${config.prefix + commandName}. Do ${config.prefix}help to list the commands I can do!`"
+      },
+      "success": {}
+    }
+  },
+  "svenska": {
+    "messages": {
+      "error": {
+        "general": "`Ett oväntat fel uppstod! Vänligen kontakta ${ownerID} med loggfilen.`",
+        "bot_perm": "Jag har inte tillräcklig myndighet för att genomföra denna åtgärd!",
+        "user_perm": "Du har inte tillräckliga privilegier att utföra åtgärden!",
+        "cooldown": "`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \\`${command.name}\\` command!`",
+        "guild_command": "Detta kommando kan bara köras i en guild!",
+        "wrong_command": "`Det gick inte att försöka köra ${config.prefix + commandName}. Utföra ${config.prefix}help för att lista de kommandon jag kan göra!`"
+      },
+      "success": {}
+    }
+  },
+  "deutsch": {
+    "messages": {
+      "error": {
+        "general": "`An unexpected error occurred! Please contact ${ownerID} with the log file.`",
+        "bot_perm": "I don't have sufficient permissions to perform that action!",
+        "user_perm": "You don't have sufficient permissions to perform that action!",
+        "cooldown": "`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \\`${command.name}\\` command!`",
+        "guild_command": "This command can only be executed in a guild!",
+        "wrong_command": "`There was an error trying to execute ${config.prefix + commandName}. Do ${config.prefix}help to list the commands I can do!`"
+      },
+      "success": {}
+    }
+  }
+}
