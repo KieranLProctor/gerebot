@@ -18,7 +18,7 @@
         "general": "`Ett oväntat fel uppstod! Vänligen kontakta ${ownerID} med loggfilen.`",
         "bot_perm": "Jag har inte tillräcklig myndighet för att genomföra denna åtgärd!",
         "user_perm": "Du har inte tillräckliga privilegier att utföra åtgärden!",
-        "cooldown": "`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \\`${command.name}\\` command!`",
+        "cooldown": "`Vänta ${timeLeft.toFixed(1)} fler sekunder innan du återanvänder kommandot \\`${command.name}\\`!`",
         "guild_command": "Detta kommando kan bara köras i en guild!",
         "wrong_command": "`Det gick inte att försöka köra ${config.prefix + commandName}. Utföra ${config.prefix}help för att lista de kommandon jag kan göra!`"
       },
