@@ -1,6 +1,6 @@
 {
   "name": "gerebot",
-  "version": "1.0.0",
+  "version": "1.6.2",
   "description": "Gerebot for Discord.",
   "main": "gerebot.js",
   "scripts": {
