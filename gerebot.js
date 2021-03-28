@@ -31,7 +31,7 @@ for (const file of eventFiles) {
   const event = require(`./events/${file}`);
   client.on(file.split(".")[0], event.bind(null, client));
 
-  client.logger.log("info", `Loaded the ${file} event file.`);
+  client.logger.log("info", `Loaded the ${file.replace('.js', '').toUpperCase()} event file.`);
 }
 
 // Get all of the folders that hold commands.
@@ -48,7 +48,7 @@ for (const folder of commandFolders) {
     const command = require(`./commands/${folder}/${file}`);
     client.commands.set(command.name, command);
 
-    client.logger.log("info", `Loaded the ${file} command file.`);
+    client.logger.log("info", `Loaded the ${file.replace('.js', '').toUpperCase()} command file.`);
   }
 }
 
