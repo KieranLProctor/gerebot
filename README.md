@@ -18,9 +18,8 @@ After running the above command make a .env file and add the following.
 
 ```
 DISCORD_TOKEN=[YOUR_DISCORD_TOKEN]
-OWNER=[YOUR_USER_ID]
-DARKSKY_TOKEN=[YOUR_DARKSKY_TOKEN]
-MAPBOX_TOKEN=[YOUR_MAPBOX_TOKEN]
-YOUTUBE_TOKEN=[YOUR_YOUTUBE_TOKEN]
 ```
 
+## Configuration
+
+To configure this bot how you would like, simply make your desired changes to the files in the `config` directory.
