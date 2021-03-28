@@ -13,6 +13,8 @@ const logger = winston.createLogger({
   ),
 });
 
+// we should install chalk to get some better colour indications in the console.
+
 // Assign instances to client variables (to access globally).
 client.commands = new Discord.Collection();
 client.player = new Player(client);;
