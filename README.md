@@ -18,6 +18,8 @@ After running the above command make a .env file and add the following.
 
 ```
 DISCORD_TOKEN=[YOUR_DISCORD_TOKEN]
+MAPBOX_TOKEN=[YOUR_MAPBOX_TOKEN]
+DARKSKY_TOKEN=[YOUR_DARKSKY_TOKEN]
 ```
 
 It's worth noting that this project uses [`opusscript`](https://www.npmjs.com/package/opusscript) however, if you are able to I'd highly recommend swapping it out for [`@discordjs/opus`](https://www.npmjs.com/package/@discordjs/opus).
