@@ -1,7 +1,4 @@
-// Dependencies.
-const Discord = require('discord.js');
-const config = require('../../configs/config.json');
-
+// Return the command.
 module.exports = {
   name: 'clear',
   description: 'Removes all tracks from the queue.',
@@ -22,7 +19,7 @@ module.exports = {
     client.player.clearQueue(guildID).then(response => {
       message.channel.send(`✔ All tracks have been removed from the queue!`);
     }).catch(error => {
-      console.log(error);
+      client.logger.log('error', error);
     });
   }
 };

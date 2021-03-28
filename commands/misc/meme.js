@@ -1,7 +1,4 @@
-// Dependencies.
-const Discord = require('discord.js');
-const axios = require('axios');
-
+// Return the command.
 module.exports = {
   name: 'meme',
   description: 'Send a random or specified subreddits meme to the channel.',
@@ -13,11 +10,11 @@ module.exports = {
     const url = `https://meme-api.herokuapp.com/gimme${subreddit}`;
 
     // Get the meme and send message.
-    axios
+    client.axios
       .get(url)
-      .then(res => {
-        message.channel.send(res.data.url);
+      .then(response => {
+        message.channel.send(response.data.url);
       })
-      .catch(err => console.log(err));
+      .catch(error => client.logger.log('error', error));
   }
 };

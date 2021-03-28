@@ -1,10 +1,4 @@
-// Dependencies.
-const Discord = require('discord.js');
-const config = require('../../configs/config.json');
-const messages = require('../../configs/lang.json');
-
-const language = config.language;
-
+// Return the command.
 module.exports = {
   name: 'serverinfo',
   description: 'Displays information about the server.',
@@ -31,10 +25,10 @@ module.exports = {
       'southafrica': ':flag_za:  South Africa'
     }
 
-    if (!guild || !guild.available) return message.reply(messages[language].messages.error.guild_command);
+    if (!guild || !guild.available) return message.reply(client.messages[language].messages.error.guild_command);
 
     embed.setAuthor(message.author.username)
-      .setColor(config.colors.embed)
+      .setColor(client.config.colors.embed)
       .setDescription('Information about the server.')
       .addFields(
         { name: '¬ Name', value: guild.name, inline: true },

@@ -1,8 +1,4 @@
-// Dependencies.
-const Discord = require("discord.js");
-const config = require("../../configs/config.json");
-const moment = require("moment");
-
+// Return the command.
 module.exports = {
   name: "play",
   description:
@@ -33,7 +29,7 @@ module.exports = {
 
       embed
         .setAuthor(message.author.username)
-        .setColor(config.colors.embed)
+        .setColor(client.config.colors.embed)
         .setDescription(`[${song.name}](${song.url})`)
         .addField("¬ Playing in", userVoiceChannel.name, true)
         .addFields(

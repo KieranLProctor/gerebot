@@ -1,8 +1,4 @@
-// Dependencies.
-const config = require('../../configs/config.json');
-require('dotenv').config();
-
-// Returning the command.
+// Return the command.
 module.exports = {
   name: 'help',
   description: 'List all of my commands or info about a specific command.',
@@ -17,7 +13,7 @@ module.exports = {
     if (!args.length) {
       data.push(`\`Here's a list of all my commands:\``);
       data.push(`\`${commands.map(command => command.name).join(',\n')}\``);
-      data.push(`\nYou can send \`${config.prefix}help <command>\` to get info on a specific command!`);
+      data.push(`\nYou can send \`${client.config.prefix}help <command>\` to get info on a specific command!`);
 
       return message.author
         .send(data, { split: true })
@@ -26,7 +22,7 @@ module.exports = {
           message.reply(`I've sent you a DM with all my commands!`);
         })
         .catch(error => {
-          console.error(`Couldn't send help DM to ${message.author.tag}.\n`, error);
+          client.logger.log('error', `Couldn't send help DM to ${message.author.tag}.`);
           
           message.reply(`it seems like I can't DM you!`);
         });
@@ -48,7 +44,7 @@ module.exports = {
     }
 
     if (command.usage) {
-      data.push(`**Usage:** ${config.prefix}${command.name} ${command.usage}`);
+      data.push(`**Usage:** ${client.config.prefix}${command.name} ${command.usage}`);
     }
 
     data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);

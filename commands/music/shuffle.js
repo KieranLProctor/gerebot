@@ -1,7 +1,4 @@
-// Dependencies.
-const Discord = require('discord.js');
-const config = require('../../configs/config.json');
-
+// Return the command
 module.exports = {
   name: 'shuffle',
   description: 'Shuffles all of the tracks in queue.',

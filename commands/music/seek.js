@@ -1,7 +1,4 @@
-// Dependencies.
-const Discord = require('discord.js');
-const config = require('../../configs/config.json');
-
+// Return the command.
 module.exports = {
   name: 'seek',
   description: 'Seeks to the specific posisition in the track currently playing.',

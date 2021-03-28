@@ -1,7 +1,4 @@
-// Dependencies.
-const Discord = require('discord.js');
-const config = require('../../configs/config.json');
-
+// Return the command.
 module.exports = {
   name: 'volume',
   description: 'Changes the volume on the currently playing track.',

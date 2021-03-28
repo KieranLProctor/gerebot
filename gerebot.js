@@ -18,6 +18,7 @@ client.commands = new Discord.Collection();
 client.player = new Player(client);;
 client.logger = logger;
 client.moment = require("moment");
+client.axios = require('axios');
 client.config = require("./configs/config.json");
 client.messages = require("./configs/lang.json");
 client.fs = require('fs');

@@ -1,11 +1,4 @@
-// Dependencies.
-const Discord = require('discord.js');
-const axios = require('axios');
-const config = require('../../configs/config.json');
-require('dotenv').config();
-const mapboxToken = process.env.MAPBOX_TOKEN;
-const darkskyToken = process.env.DARKSKY_TOKEN;
-
+// Return the command.
 module.exports = {
   name: 'weather',
   description:
@@ -15,28 +8,28 @@ module.exports = {
   args: true,
   execute(client, message, args) {
     const getWeather = async args => {
-      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${args}.json?access_token=${mapboxToken}`;
+      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${args}.json?access_token=${client.env.parsed.MAPBOX_TOKEN}`;
 
-      axios
+      client.axios
         .get(url)
-        .then(res => {
-          const lat = res.data.features[1].center[1];
-          const long = res.data.features[1].center[0];
+        .then(response => {
+          const lat = response.data.features[1].center[1];
+          const long = response.data.features[1].center[0];
 
           return getWeatherData(lat, long);
         })
-        .catch(err => console.log(err));
+        .catch(error => client.logger.log('error', error));
     };
 
     const getWeatherData = (lat, long) => {
-      const url = `https://api.darksky.net/forecast/${darkskyToken}/${lat},${long}?units=si`;
+      const url = `https://api.darksky.net/forecast/${client.env.parsed.DARKSKY_TOKEN}/${lat},${long}?units=si`;
 
-      axios.get(url).then(res => {
+      axios.get(url).then(response => {
         const embed = new Discord.MessageEmbed();
-        const currentData = res.data.currently;
+        const currentData = response.data.currently;
 
         embed.setAuthor(message.author.username)
-          .setColor(config.colors.embed)
+          .setColor(client.config.colors.embed)
           .setDescription(`Weather information for ${args}.`)
           .addFields(
             { name: '¬ Summary', value: currentData.summary, inline: true },
@@ -57,7 +50,7 @@ module.exports = {
           .setTimestamp();
 
         message.channel.send(embed);
-      }).catch(err => console.log(err));
+      }).catch(error => client.logger.log('eror', error));
     }
 
     getWeather(args);

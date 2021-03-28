@@ -1,7 +1,4 @@
-// Dependencies.
-const Discord = require('discord.js');
-const config = require('../../configs/config.json');
-
+// Return the command.
 module.exports = {
   name: 'remove',
   description: 'Removes the specified track from the queue.',
@@ -30,6 +27,8 @@ module.exports = {
       message.channel.send('Removed song!');
     }).catch(error => {
       message.channel.send(`❌ Error removing the track from the queue!`);
+
+      client.logger.log('error', error)
     });
   }
 };

@@ -1,7 +1,4 @@
-// Dependencies.
-const Discord = require("discord.js");
-const config = require("../../configs/config.json");
-
+// Return the command.
 module.exports = {
   name: "join",
   description: "Joins the voice channel you are connected to.",
@@ -23,7 +20,7 @@ module.exports = {
       .then((connection) => {
         embed
           .setAuthor(message.author.username)
-          .setColor(config.colors.embed)
+          .setColor(client.config.colors.embed)
           .setDescription("Successfully joined the voice channel.")
           .addFields(
             { name: "¬ Name", value: connection.channel.name, inline: true },
@@ -44,7 +41,7 @@ module.exports = {
         message.channel.send(embed);
       })
       .catch((error) => {
-        console.log(error);
+        client.logger.log('error', error);
 
         message.channel.send(`❌ Error joining \`${userVoiceChannel.name}\`!`);
       });

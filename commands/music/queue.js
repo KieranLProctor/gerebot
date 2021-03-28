@@ -1,8 +1,4 @@
-// Dependencies.
-const Discord = require('discord.js');
-const config = require('../../configs/config.json');
-const moment = require('moment');
-
+// Return the command.
 module.exports = {
   name: 'queue',
   description: 'Displays all of the tracks in the play queue.',
@@ -21,7 +17,7 @@ module.exports = {
     if (!queue) return message.reply(`❌ There isn't anything in the queue!`);
 
     embed.setAuthor(message.author.username)
-      .setColor(config.colors.embed)
+      .setColor(client.config.colors.embed)
       .setDescription(`[Queue for ${userVoiceChannel.name}](www.kieranproctor.com)`)
       .setTimestamp();
 
