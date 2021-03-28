@@ -22,6 +22,7 @@ client.moment = require("moment");
 client.axios = require('axios');
 client.config = require("./configs/config.json");
 client.messages = require("./configs/lang.json");
+client.emojis = require('./configs/emojis.json');
 client.fs = require('fs');
 client.env = require("dotenv").config();
 client.cooldowns = new Discord.Collection();

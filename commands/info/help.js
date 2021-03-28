@@ -24,14 +24,14 @@ module.exports = {
         .catch(error => {
           client.logger.log('error', `Couldn't send help DM to ${message.author.tag}.`);
           
-          message.reply(`it seems like I can't DM you!`);
+          message.reply(`${client.emojis.error} It seems like I can't DM you!`);
         });
     }
 
     const name = args[0].toLowerCase();
     const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
-    if (!command) return message.reply(`that's not a valid command!`);
+    if (!command) return message.reply(`${client.emojis.error} That's not a valid command!`);
 
     data.push(`**Name:** ${command.name}`);
 
