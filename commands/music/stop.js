@@ -1,6 +1,6 @@
 // Dependencies.
 const Discord = require('discord.js');
-const config = require('../configs/config.json');
+const config = require('../../configs/config.json');
 
 module.exports = {
   name: 'stop',

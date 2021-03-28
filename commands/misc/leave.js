@@ -1,6 +1,6 @@
 // Dependencies.
 const Discord = require('discord.js');
-const config = require('../configs/config.json');
+const config = require('../../configs/config.json');
 
 module.exports = {
   name: 'leave',
@@ -8,14 +8,7 @@ module.exports = {
   aliases: ['lvc', 'lc', 'l'],
   args: false,
   async execute(client, message) {
-    const guildID = message.guild.id;
-    //let clientChannel = client.bot.;
-
-    // Check if currently playing anything.
-    let isPlaying = await client.player.isPlaying(guildID);
-    if (isPlaying) client.player.stop(guildID);
-
-    // Leave voice channel and send message.
+    // Leave voice channel & send message.
     let userVoiceChannel = message.member.voice.channel;
     userVoiceChannel.leave();
 

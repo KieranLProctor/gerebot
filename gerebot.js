@@ -1,54 +1,85 @@
 // Dependencies.
-const fs = require('fs');
-const Discord = require('discord.js');
-const moment = require('moment');
+const fs = require("fs");
+const Discord = require("discord.js");
+const moment = require("moment");
 const { Player } = require("discord-player");
-const config = require('./configs/config.json');
-const messages = require('./configs/lang.json');
-require('dotenv').config();
+const config = require("./configs/config.json");
+const messages = require("./configs/lang.json");
+require("dotenv").config();
+const winston = require("winston");
+const logger = winston.createLogger({
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: "log" }),
+  ],
+  format: winston.format.printf(
+    (log) => `[${log.level.toUpperCase()}] - ${log.message}`
+  ),
+});
 
-// Used to get the correct language from the config.
+// Get language & locale from the config.
 const language = config.language.toLowerCase();
+const locale = config.locale;
 
-// .env items.
+// Get .env items.
 const token = process.env.DISCORD_TOKEN;
-const ownerID = process.env.OWNER;
+const ownerID = process.env.OWNER_ID;
 
-// New instance of discord client & command collection.
+// Make new instance of Discord client & make command collection.
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
-// Discord-player instance & queue.
-const player = new Player(client, process.env.YOUTUBE_TOKEN);
+// Make new instance of Discord-player & queue.
+const player = new Player(client);
 client.player = player;
 
-// New collection for commands on a cooldown.
+// Make new collection for commands on a cooldown.
 const cooldowns = new Discord.Collection();
 
-// Sets current time to var so can be used later.
-moment().locale('en-gb');
-const currentTime = moment().format('LTS');
+// Set moment locale & current time.
+moment().locale(locale);
+const currentTime = moment().format("LTS");
 
-// Getting all of the files in the dir.
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+// Get all of the event files.
+const eventFiles = fs.readdirSync("./events");
+// Loop through all of the events registering them.
+for (const file of eventFiles) {
+  const event = require(`./events/${file}`);
+  client.on(file.split(".")[0], event.bind(null, client));
 
-// Looping & adding every file in commandFiles.
-for (const file of commandFiles) {
-  let command = require(`./commands/${file}`);
+  logger.log("info", `Loaded the ${file} event file.`);
+}
 
-  // Sets key in collection with command name & value.
-  client.commands.set(command.name, command);
+// Get all of the folders that hold commands.
+const commandFolders = fs.readdirSync("./commands");
+// Loop through all of the folders.
+for (const folder of commandFolders) {
+  // Get all of the files in this directory.
+  const commandFiles = fs
+    .readdirSync(`./commands/${folder}`)
+    .filter((file) => file.endsWith(".js"));
+  // Loop through each command and add it to the collection.
+  for (const file of commandFiles) {
+    // Sets key in collection with command name & value.
+    const command = require(`./commands/${folder}/${file}`);
+    client.commands.set(command.name, command);
+
+    logger.log("info", `Loaded the ${file} command file.`);
+  }
 }
 
 // Bot ready event listener.
-client.once('ready', () => {
-  console.log(`Logged in as ${client.user.tag} at ${currentTime} serving ${client.guilds.cache.size} guild(s)!`);
+client.once("ready", () => {
+  logger.log(
+    "info",
+    `Logged in as ${client.user.tag} at ${currentTime} serving ${client.guilds.cache.size} guild(s)!`
+  );
 
   client.user.setActivity(`${config.prefix}help`);
 });
 
 // Bot message event listener.
-client.on('message', message => {
+client.on("message", (message) => {
   // If msg doesnt start with prefix or sent from bot => return.
   if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
@@ -57,21 +88,24 @@ client.on('message', message => {
   const commandName = args.shift().toLowerCase();
 
   // Assigns command to a var to make easier to do logic.
-  const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+  const command =
+    client.commands.get(commandName) ||
+    client.commands.find(
+      (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
+    );
 
   // If isnt a command => return.
   if (!command) return;
 
   // If command is sent in dm but is guild only => return.
-  if (command.guildOnly && message.channel.type !== 'text') {
+  if (command.guildOnly && message.channel.type !== "text") {
     return message.reply(messages[language].messages.error.guild_command);
   }
 
-  // If command req args but doesnt get any => return.
+  // If command requires args but doesnt get any => return.
   if (command.args && !args.length) {
     // Sending the user the correct way to do the command.
     let reply = `${message.author}, You didn't provide any arguments!`;
-
     if (command.usage) {
       reply += `\nThe correct usage would be: \`${config.prefix}${command.name} ${command.usage}\``;
     }
@@ -91,12 +125,10 @@ client.on('message', message => {
 
   // Checking if same user tried to use command.
   if (timestamps.has(message.author.id)) {
-    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
     // If has time left on cooldown don't run.
+    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-
       return message.reply(messages[language].messages.error.cooldown);
     }
   }
@@ -105,11 +137,11 @@ client.on('message', message => {
   timestamps.set(message.author.id, now);
   setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
-  // Tries to exec the command the user typed.
+  // Tries to execute the command the user typed.
   try {
     command.execute(client, message, args);
   } catch (error) {
-    console.log(error);
+    logger.log("error", error);
 
     message.reply(messages[language].messages.error.wrong_command);
   }

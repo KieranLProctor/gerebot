@@ -1,7 +1,7 @@
 // Dependencies.
 const Discord = require('discord.js');
-const config = require('../configs/config.json');
-const messages = require('../configs/lang.json');
+const config = require('../../configs/config.json');
+const messages = require('../../configs/lang.json');
 
 const language = config.language;
 
@@ -31,7 +31,7 @@ module.exports = {
       'southafrica': ':flag_za:  South Africa'
     }
 
-    if (!guild || !guild.avilable) return message.reply(messages[language].messages.error.guild_command);
+    if (!guild || !guild.available) return message.reply(messages[language].messages.error.guild_command);
 
     embed.setAuthor(message.author.username)
       .setColor(config.colors.embed)
@@ -42,7 +42,8 @@ module.exports = {
         { name: '¬ Owner', value: `${guild.owner.user.username}#${guild.owner.user.discriminator}`, inline: true }
       )
       .addFields(
-        { name: '¬ Region', value: region[guild.region], inline: true },
+        //{ name: '¬ Region', value: region[guild.region], inline: true },
+        { name: '¬ Region', value: guild.region, inline: true },
         { name: '¬ Channels', value: guild.channels.size, inline: true },
         { name: '¬ Roles', value: guild.roles.size, inline: true }
       )

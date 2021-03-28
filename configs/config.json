@@ -1,6 +1,7 @@
 {
   "prefix": "..",
   "language": "english",
+  "locale": "en-GB",
   "colors": {
     "embed": "FF1493"
   }
