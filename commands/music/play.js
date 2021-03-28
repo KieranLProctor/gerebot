@@ -7,7 +7,7 @@ module.exports = {
   usage: "<query|link>",
   args: true,
   async execute(client, message, args) {
-    const embed = new Discord.MessageEmbed();
+    const embed = new client.Discord.MessageEmbed();
     const guildID = message.guild.id;
     const toPlay = args.toString().replace(/,/g, " ");
 

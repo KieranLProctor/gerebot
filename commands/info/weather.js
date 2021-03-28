@@ -25,7 +25,7 @@ module.exports = {
       const url = `https://api.darksky.net/forecast/${client.env.parsed.DARKSKY_TOKEN}/${lat},${long}?units=si`;
 
       axios.get(url).then(response => {
-        const embed = new Discord.MessageEmbed();
+        const embed = new client.Discord.MessageEmbed();
         const currentData = response.data.currently;
 
         embed.setAuthor(message.author.username)

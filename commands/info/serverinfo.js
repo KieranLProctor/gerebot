@@ -5,7 +5,7 @@ module.exports = {
   aliases: ['servinfo', 'sinfo', 'sinf'],
   args: false,
   execute(client, message) {
-    const embed = new Discord.MessageEmbed();
+    const embed = new client.Discord.MessageEmbed();
     const guild = message.guild;
     const region = {
       'brazil': ':flag_br Brazil',

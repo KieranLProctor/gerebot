@@ -6,7 +6,7 @@ module.exports = {
   args: false,
   async execute(client, message) {
     const guildID = message.guild.id;
-    const embed = new Discord.MessageEmbed();
+    const embed = new client.Discord.MessageEmbed();
 
     // Check if user is in a voice channel.
     let userVoiceChannel = message.member.voice.channel;
@@ -22,7 +22,7 @@ module.exports = {
       .setTimestamp();
 
     queue.songs.forEach((song, i) => {
-      embed.addField(`${i == 0 ? '__Currently Playing:__\n' : `__Playing Next:__\n\`${i}.\``} [${song.name}](${song.url}) | \`${moment(song.duration / 60).format('hh:mm:ss')} Requested By: ${song.requestedBy}\``);
+      embed.addField(`${i == 0 ? '__Currently Playing:__\n' : `__Playing Next:__\n\`${i}.\``} [${song.name}](${song.url}) | \`${client.moment(song.duration / 60).format('hh:mm:ss')} Requested By: ${song.requestedBy}\``);
     });
 
     message.channel.send(embed);

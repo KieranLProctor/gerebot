@@ -14,6 +14,7 @@ const logger = winston.createLogger({
 });
 
 // Assign instances to client variables (to access globally).
+client.Discord = Discord;
 client.commands = new Discord.Collection();
 client.player = new Player(client);;
 client.logger = logger;

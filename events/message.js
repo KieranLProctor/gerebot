@@ -33,8 +33,8 @@ module.exports = (client, message) => {
   }
 
   // If command has cooldown set active.
-  if (!cooldowns.has(command.name)) {
-    cooldowns.set(command.name, new Discord.Collection());
+  if (!client.cooldowns.has(command.name)) {
+    client.cooldowns.set(command.name, new client.Discord.Collection());
   }
 
   // Gets UNIX time
