@@ -18,8 +18,8 @@ module.exports = {
       );
 
     client.player.setRepeatMode(message, false);
-    let successful = client.player.stop(message);
-    if (!successful) {
+    let wasSuccessful = client.player.stop(message);
+    if (!wasSuccessful) {
       client.logger.log("error", 'Unable to stop music.');
 
       return message.reply(`${client.emotes.error} - An error occurred.`);
