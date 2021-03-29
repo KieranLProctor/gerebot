@@ -5,14 +5,14 @@ module.exports = {
   aliases: ['jvc', 'jv', 'j'],
   args: false,
   execute(client, message) {
-    const embed = new client.Discord.MessageEmbed()
+    const embed = new client.Discord.MessageEmbed();
 
     // Check if user is in a voice channel.
-    let userVoiceChannel = message.member.voice.channel
+    let userVoiceChannel = message.member.voice.channel;
     if (!userVoiceChannel)
       return message.reply(
         `${client.emotes.error} You must be in a voice channel to repeat the track currently playing!`,
-      )
+      );
 
     // Join voice channel and send message.
     userVoiceChannel
@@ -40,16 +40,16 @@ module.exports = {
             },
           )
           .addField('¬ Users', connection.channel.members.size - 1, true)
-          .setTimestamp()
+          .setTimestamp();
 
-        message.channel.send(embed)
+        message.channel.send(embed);
       })
       .catch((error) => {
-        client.logger.log('error', error)
+        client.logger.log('error', error);
 
         message.channel.send(
           `${client.emotes.error} Error joining \`${userVoiceChannel.name}\`!`,
-        )
-      })
+        );
+      });
   },
-}
+};

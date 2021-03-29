@@ -5,8 +5,8 @@ module.exports = {
   aliases: ['servinfo', 'sinfo', 'sinf'],
   args: false,
   execute(client, message) {
-    const embed = new client.Discord.MessageEmbed()
-    const guild = message.guild
+    const embed = new client.Discord.MessageEmbed();
+    const guild = message.guild;
     const region = {
       brazil: ':flag_br: Brazil',
       europe: ':flag_eu: Europe',
@@ -21,12 +21,12 @@ module.exports = {
       'us-east': ':flag_us: U.S East',
       'us-south': ':flag_us: U.S South',
       'us-west': ':flag_us: U.S West',
-    }
+    };
 
     if (!guild || !guild.available)
       return message.reply(
         client.messages[client.language].messages.error.guild_command,
-      )
+      );
 
     embed
       .setAuthor(message.author.username)
@@ -50,8 +50,8 @@ module.exports = {
         },
         { name: '¬ Roles', value: guild.roles.size, inline: true },
       )
-      .setTimestamp()
+      .setTimestamp();
 
-    message.channel.send(embed)
+    message.channel.send(embed);
   },
-}
+};

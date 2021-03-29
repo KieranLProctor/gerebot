@@ -8,27 +8,27 @@ module.exports = {
   args: true,
   execute(client, message, args) {
     const getWeather = async (args) => {
-      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${args}.json?access_token=${client.env.parsed.MAPBOX_TOKEN}`
+      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${args}.json?access_token=${client.env.parsed.MAPBOX_TOKEN}`;
 
       client.axios
         .get(url)
         .then((response) => {
-          const lat = response.data.features[1].center[1]
-          const long = response.data.features[1].center[0]
+          const lat = response.data.features[1].center[1];
+          const long = response.data.features[1].center[0];
 
-          return getWeatherData(lat, long)
+          return getWeatherData(lat, long);
         })
-        .catch((error) => client.logger.log('error', error))
-    }
+        .catch((error) => client.logger.log('error', error));
+    };
 
     const getWeatherData = (lat, long) => {
-      const url = `https://api.darksky.net/forecast/${client.env.parsed.DARKSKY_TOKEN}/${lat},${long}?units=si`
+      const url = `https://api.darksky.net/forecast/${client.env.parsed.DARKSKY_TOKEN}/${lat},${long}?units=si`;
 
       client.axios
         .get(url)
         .then((response) => {
-          const embed = new client.Discord.MessageEmbed()
-          const currentData = response.data.currently
+          const embed = new client.Discord.MessageEmbed();
+          const currentData = response.data.currently;
 
           embed
             .setAuthor(message.author.username)
@@ -86,13 +86,13 @@ module.exports = {
               },
             )
             //.addField(map)
-            .setTimestamp()
+            .setTimestamp();
 
-          message.channel.send(embed)
+          message.channel.send(embed);
         })
-        .catch((error) => client.logger.log('eror', error))
-    }
+        .catch((error) => client.logger.log('eror', error));
+    };
 
-    getWeather(args)
+    getWeather(args);
   },
-}
+};
