@@ -1,3 +1,4 @@
+// Return the event.
 module.exports = async (client) => {
   client.logger.log(
     "info",

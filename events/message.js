@@ -1,3 +1,4 @@
+// Return the event.
 module.exports = (client, message) => {
   // If msg doesnt start with prefix or sent from bot => return.
   if (!message.content.startsWith(client.config.prefix) || message.author.bot) return;
