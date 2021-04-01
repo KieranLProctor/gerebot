@@ -31,10 +31,12 @@ module.exports = {
       );
 
     const wasSuccessful = client.player.play(message, track);
-    if(!wasSuccessful) {
+    if (!wasSuccessful) {
       client.logger.log('error', 'Unable to seek.');
 
-      return client.message.reply(`${client.emotes.error} Unable to seek to requested position!`);
+      return client.message.reply(
+        `${client.emotes.error} Unable to seek to requested position!`,
+      );
     }
 
     message.channel.send(`seeked to ${args[0]}`);

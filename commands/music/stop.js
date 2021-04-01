@@ -4,29 +4,29 @@ module.exports = {
   description: 'Stops playing music altogether.',
   aliases: ['stp', 'spm', 'sp'],
   args: false,
-  async execute(client, message) {
-    let userVoiceChannel = message.member.voice.channel;
+  execute(client, message) {
+    const userVoiceChannel = message.member.voice.channel;
     if (!userVoiceChannel)
       return message.reply(
-        `${client.emotes.error} You must be in a voice channel to make me stop playing!`,
+        `${client.emotes.error} You must be in a voice channel to stop the track!`,
       );
 
-    let clientVoiceChannel = message.guild.me.voice.channel;
+    const clientVoiceChannel = message.guild.me.voice.channel;
     if (clientVoiceChannel && userVoiceChannel.id !== clientVoiceChannel.id)
       return message.reply(
-        `${client.emotes.error} - You are not in the same voice channel !`,
+        `${client.emotes.error} We must be in the same voice channel to stop the track!`,
       );
 
     client.player.setRepeatMode(message, false);
-    let wasSuccessful = client.player.stop(message);
+    const wasSuccessful = client.player.stop(message);
     if (!wasSuccessful) {
       client.logger.log('error', 'Unable to stop music.');
 
-      return message.reply(`${client.emotes.error} - An error occurred.`);
+      return message.reply(`${client.emotes.error} Unable to stop the track!`);
     }
 
     message.channel.send(
-      `${client.emotes.success} - The music has now stopped!`,
+      `${client.emotes.success} The track has now stopped!`,
     );
   },
 };
