@@ -21,13 +21,11 @@ module.exports = {
         .send(data, { split: true })
         .then(() => {
           if (message.channel.type === 'dm') return;
+
           message.reply(`I've sent you a DM with all my commands!`);
         })
         .catch((error) => {
-          client.logger.log(
-            'error',
-            `Couldn't send help DM to ${message.author.tag}.`,
-          );
+          client.logger.log('error', error);
 
           message.reply(`${client.emojis.error} It seems like I can't DM you!`);
         });
@@ -37,27 +35,23 @@ module.exports = {
     const command =
       commands.get(name) ||
       commands.find((c) => c.aliases && c.aliases.includes(name));
-
     if (!command)
       return message.reply(
-        `${client.emojis.error} That's not a valid command!`,
+        `${client.emojis.error} ${client.lang[client.language].messages.error.wrong_command}`,
       );
 
     data.push(`**Name:** ${command.name}`);
 
-    if (command.aliases) {
+    if (command.aliases)
       data.push(`**Aliases:** ${command.aliases.join(', ')}`);
-    }
 
-    if (command.description) {
+    if (command.description)
       data.push(`**Description:** ${command.description}`);
-    }
 
-    if (command.usage) {
+    if (command.usage)
       data.push(
         `**Usage:** ${client.config.prefix}${command.name} ${command.usage}`,
       );
-    }
 
     data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
 

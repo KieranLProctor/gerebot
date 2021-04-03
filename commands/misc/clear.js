@@ -4,16 +4,16 @@ module.exports = {
   description: 'Removes all tracks from the queue.',
   aliases: ['clrq', 'clr', 'cq'],
   args: false,
-  async execute(client, message) {
+  execute(client, message) {
     // Check if user is in a voice channel.
-    let userVoiceChannel = message.member.voice.channel;
+    const userVoiceChannel = message.member.voice.channel;
     if (!userVoiceChannel)
       return message.reply(
         `${client.emotes.error} You must be in a voice channel to clear the queue!`,
       );
 
-    // Check if there is a queue to clear.
-    let queue = await client.player.getQueue(message);
+    // Check if currently playing.
+    const queue = client.player.getQueue(message);
     if (!queue)
       return message.channel.send(
         `${client.emotes.error} No tracks in the queue to clear!`,

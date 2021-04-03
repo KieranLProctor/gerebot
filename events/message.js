@@ -21,7 +21,7 @@ module.exports = (client, message) => {
   // If command is sent in dm but is guild only => return.
   if (command.guildOnly && message.channel.type !== 'text') {
     return message.reply(
-      client.messages[client.language].messages.error.guild_command,
+      client.lang[client.language].messages.error.guild_command,
     );
   }
 
@@ -37,9 +37,8 @@ module.exports = (client, message) => {
   }
 
   // If command has cooldown set active.
-  if (!client.cooldowns.has(command.name)) {
+  if (!client.cooldowns.has(command.name))
     client.cooldowns.set(command.name, new client.Discord.Collection());
-  }
 
   // Gets UNIX time
   const now = Date.now();
@@ -53,7 +52,11 @@ module.exports = (client, message) => {
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
       return message.reply(
-        client.messages[client.language].messages.error.cooldown,
+        `${client.emotes.cooldown} ${client.lang[
+          client.language
+        ].messages.error.cooldown
+          .replace('%1', timeLeft.toFixed(1))
+          .replace('%2', command.name)}`,
       );
     }
   }
@@ -69,7 +72,11 @@ module.exports = (client, message) => {
     client.logger.log('error', error);
 
     message.reply(
-      client.messages[client.language].messages.error.wrong_command,
+      `${client.emotes.error} ${client.lang[
+        client.language
+      ].messages.error.wrong_command
+        .replace('%1', client.config.prefix + commandName)
+        .replace('%2', client.config.prefix)}`,
     );
   }
 };

@@ -9,7 +9,6 @@ module.exports = {
   execute(client, message, args) {
     const getWeather = async (args) => {
       const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${args}.json?access_token=${client.env.parsed.MAPBOX_TOKEN}`;
-
       client.axios
         .get(url)
         .then((response) => {
@@ -23,7 +22,6 @@ module.exports = {
 
     const getWeatherData = (lat, long) => {
       const url = `https://api.darksky.net/forecast/${client.env.parsed.DARKSKY_TOKEN}/${lat},${long}?units=si`;
-
       client.axios
         .get(url)
         .then((response) => {
