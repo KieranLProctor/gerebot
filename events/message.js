@@ -1,6 +1,8 @@
+// Return the event.
 module.exports = (client, message) => {
   // If msg doesnt start with prefix or sent from bot => return.
-  if (!message.content.startsWith(client.config.prefix) || message.author.bot) return;
+  if (!message.content.startsWith(client.config.prefix) || message.author.bot)
+    return;
 
   // Gets the args from the message.
   const args = message.content.slice(client.config.prefix.length).split(/ +/);
@@ -10,15 +12,17 @@ module.exports = (client, message) => {
   const command =
     client.commands.get(commandName) ||
     client.commands.find(
-      (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
+      (cmd) => cmd.aliases && cmd.aliases.includes(commandName),
     );
 
   // If isnt a command => return.
   if (!command) return;
 
   // If command is sent in dm but is guild only => return.
-  if (command.guildOnly && message.channel.type !== "text") {
-    return message.reply(client.messages[language].messages.error.guild_command);
+  if (command.guildOnly && message.channel.type !== 'text') {
+    return message.reply(
+      client.lang[client.language].messages.error.guild_command,
+    );
   }
 
   // If command requires args but doesnt get any => return.
@@ -33,9 +37,8 @@ module.exports = (client, message) => {
   }
 
   // If command has cooldown set active.
-  if (!cooldowns.has(command.name)) {
-    cooldowns.set(command.name, new Discord.Collection());
-  }
+  if (!client.cooldowns.has(command.name))
+    client.cooldowns.set(command.name, new client.Discord.Collection());
 
   // Gets UNIX time
   const now = Date.now();
@@ -48,7 +51,13 @@ module.exports = (client, message) => {
     const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return message.reply(client.messages[language].messages.error.cooldown);
+      return message.reply(
+        `${client.emotes.cooldown} ${client.lang[
+          client.language
+        ].messages.error.cooldown
+          .replace('%1', timeLeft.toFixed(1))
+          .replace('%2', command.name)}`,
+      );
     }
   }
 
@@ -60,8 +69,14 @@ module.exports = (client, message) => {
   try {
     command.execute(client, message, args);
   } catch (error) {
-    logger.log("error", error);
+    client.logger.log('error', error);
 
-    message.reply(client.messages[language].messages.error.wrong_command);
+    message.reply(
+      `${client.emotes.error} ${client.lang[
+        client.language
+      ].messages.error.wrong_command
+        .replace('%1', client.config.prefix + commandName)
+        .replace('%2', client.config.prefix)}`,
+    );
   }
-}
+};

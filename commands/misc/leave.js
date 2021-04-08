@@ -9,6 +9,8 @@ module.exports = {
     let userVoiceChannel = message.member.voice.channel;
     userVoiceChannel.leave();
 
-    message.channel.send(`✔ Successfully disconnected from \`${userVoiceChannel.name}\``);
-  }
+    message.channel.send(
+      `${client.emotes.success} Successfully disconnected from \`${userVoiceChannel.name}\``,
+    );
+  },
 };

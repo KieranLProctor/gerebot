@@ -6,15 +6,15 @@ module.exports = {
   usage: '[<subreddit>]',
   args: false,
   execute(client, message, args) {
-    const subreddit = (args.length != 0) ? `/${args}` : '';
+    const subreddit = args.length != 0 ? `/${args}` : '';
     const url = `https://meme-api.herokuapp.com/gimme${subreddit}`;
 
     // Get the meme and send message.
     client.axios
       .get(url)
-      .then(response => {
+      .then((response) => {
         message.channel.send(response.data.url);
       })
-      .catch(error => client.logger.log('error', error));
-  }
+      .catch((error) => client.logger.log('error', error));
+  },
 };

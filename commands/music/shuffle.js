@@ -5,18 +5,22 @@ module.exports = {
   aliases: ['sffle', 'shf', 'sh'],
   args: false,
   async execute(client, message) {
-    const guildID = message.guild.id;
-
     // Check if user is in a voice channel.
     let userVoiceChannel = message.member.voice.channel;
-    if (!userVoiceChannel) return message.reply('❌ You must be in a voice channel before I can shuffle the queue!');
+    if (!userVoiceChannel)
+      return message.reply(
+        `${client.emotes.error} You must be in a voice channel before I can shuffle the queue!`,
+      );
 
     // Check if there is anything in the queue.
-    let queue = await client.player.getQueue(guildID);
-    if (queue.songs.length < 3) return message.reply(`❌ There aren't enough tracks in the queue to shuffle!`);
+    let queue = await client.player.getQueue(message);
+    if (queue.songs.length < 3)
+      return message.reply(
+        `${client.emotes.error} There aren't enough tracks in the queue to shuffle!`,
+      );
 
     // Shuffle the queue.
-    let song = await client.player.shuffle(guildID);
+    let song = await client.player.shuffle(message);
     message.channel.send('shuffled');
-  }
+  },
 };
