@@ -42,7 +42,7 @@ If you would like to change any of the bots configuration, simply make the desir
 
 Contributions are always welcome!
 
-See `contributing.md` for ways to get started.
+See `CONTRIBUTING.md` for ways to get started.
 
 Please adhere to this project's `code of conduct`.
 
