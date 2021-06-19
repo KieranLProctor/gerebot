@@ -1,4 +1,4 @@
-# Contributing to Auth0 projects
+# Contributing to the project
 
 A big welcome and thank you for considering contributing to this open source project.
 
