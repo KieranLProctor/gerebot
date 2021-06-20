@@ -6,7 +6,7 @@ WORKDIR /usr/src/gerebot
 
 # Copy and install packages.
 COPY package.json /usr/src/gerebot
-RUN npm install
+RUN yarn add
 
 # Copy all files over.
 COPY . /usr/src/gerebot
