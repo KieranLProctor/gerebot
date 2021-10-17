@@ -17,6 +17,8 @@
     "dotenv": "^8.2.0",
     "moment": "^2.29.1",
     "opusscript": "^0.0.8",
+    "sequelize": "^6.6.4",
+    "sqlite3": "^5.0.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {

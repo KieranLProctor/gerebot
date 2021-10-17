@@ -3,6 +3,9 @@ const Discord = require('discord.js');
 const { Player } = require('discord-player');
 const winston = require('winston');
 const client = new Discord.Client();
+const Sequelize = require('sequelize');
+const { DataTypes } = require("sequelize/types");
+
 const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
@@ -13,11 +16,21 @@ const logger = winston.createLogger({
   ),
 });
 
+const sequelize = new Sequelize('database', 'user', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	// SQLite only
+	storage: 'database.sqlite',
+});
+
 // Assign instances to client variables (to access globally).
 client.Discord = Discord;
 client.commands = new Discord.Collection();
 client.player = new Player(client);
 client.logger = logger;
+client.sequelize = sequelize;
+client.dataTypes = DataTypes;
 client.moment = require('moment');
 client.axios = require('axios');
 client.config = require('./configs/config.json');
